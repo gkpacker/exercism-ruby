@@ -1,33 +1,25 @@
 class Scrabble
   VALUES = {
-    1 => %w(A E I O U L N R S T),
-    2 => %w(D G),
-    3 => %w(B C M P),
-    4 => %w(F H V W Y),
-    5 => %w(K),
-    8 => %w(J X),
-    10 => %w(Q Z)
+    A: 1, E: 1, I: 1, O: 1, U: 1, L: 1, N: 1, R: 1, S: 1, T: 1, D: 2,
+    G: 2, B: 3, C: 3, M: 3, P: 3, F: 4, H: 4, V: 4, W: 4, Y: 4, K: 5,
+    J: 8, X: 8, Q: 10, Z: 10
   }
 
-  def initialize(string)
-    @string = string
+  def initialize(word)
+    @word = word || ''
   end
 
   def self.score(string)
-    @string = string
-    score
+    word = string.strip.upcase
+
+    return 0 if word.empty?
+
+    letter_values = word.chars.map { |char| VALUES[char.to_sym] }
+
+    letter_values.compact.sum
   end
 
   def score
-    return 0 if @string.nil?
-
-    letter_values =
-      @string.chars.flat_map do |char|
-        VALUES.flat_map do |key, value|
-          key if value.include?(char.upcase)
-        end
-      end
-
-    letter_values.compact.sum
+    self.class.score(@word)
   end
 end
