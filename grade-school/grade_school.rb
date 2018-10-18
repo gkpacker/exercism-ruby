@@ -26,8 +26,6 @@ class School
 
   private
 
-  attr_accessor :grades_with_students
-
   def find_grade(grade)
     @grades_with_students.select { |school_hash| school_hash[:grade] == grade }
   end
