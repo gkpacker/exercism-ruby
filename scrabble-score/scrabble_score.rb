@@ -14,9 +14,7 @@ class Scrabble
 
     return 0 if word.empty?
 
-    letter_values = word.chars.map { |char| VALUES[char.to_sym] }
-
-    letter_values.compact.sum
+    word.chars.sum { |char| VALUES[char.to_sym] }
   end
 
   def score
