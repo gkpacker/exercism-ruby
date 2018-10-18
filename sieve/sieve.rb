@@ -10,8 +10,6 @@ class Sieve
   end
 
   def primes
-    result = []
-    Prime.each(@number) { |prime| result << prime }
-    result
+    Prime.each(@number).to_a
   end
 end
