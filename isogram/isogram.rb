@@ -1,9 +1,7 @@
 class Isogram
   def self.isogram?(input)
-    counter = Hash.new(0)
-    input.downcase.scan(/\w/).each do |char|
-      counter[char] += 1
-      return false if counter[char] > 1
-    end
+    downcased = input.downcase
+
+    downcased.scan(/\w/).none? { |char| downcased.count(char) > 1 }
   end
 end
