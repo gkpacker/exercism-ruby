@@ -1,7 +1,8 @@
 class Isogram
   def self.isogram?(input)
-    downcased = input.downcase
+    input.downcase!
+    letters = input.scan(/\w/)
 
-    downcased.scan(/\w/).none? { |char| downcased.count(char) > 1 }
+    letters.none? { |char| input.count(char) > 1 }
   end
 end
