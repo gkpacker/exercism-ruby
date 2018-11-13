@@ -1,3 +1,4 @@
+require 'byebug'
 class Matrix
   attr_reader :rows, :columns
 
@@ -10,12 +11,10 @@ class Matrix
   private
 
   def split_rows
-    @input.split(/\n/).map { |row| row.split.map(&:to_i) }
+    @input.lines.map { |line| line.split.map(&:to_i) }
   end
 
   def split_columns
-    (0..rows.first.size).map do |size|
-      rows.map { |row| row[size] }
-    end
+    rows.transpose
   end
 end
