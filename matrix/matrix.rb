@@ -1,4 +1,3 @@
-require 'byebug'
 class Matrix
   attr_reader :rows, :columns
 
