@@ -1,29 +1,53 @@
 require 'set'
-require 'byebug'
+
+# help me
 
 class Robot
-  LETTERS = ('A'..'Z').to_a
-  MAX_NUMBER = (0..9)
-
   attr_reader :name
 
-  def initialize
-    Random.new(srand)
-    @name = random_name
+  def initialize(generator = NameGenerator, name_cache = MemoizedNames)
+    self.generator = generator
+    self.name_cache = name_cache
+  end
+
+  def name
+    @name ||= random_name
   end
 
   def reset
-    initialize
+    @name = nil
   end
 
   def self.forget; end
 
   private
 
-  def random_name
-    letters = LETTERS.sample(2).join
-    numbers = 3.times.map { rand(MAX_NUMBER) }.join
+  attr_writer :name
+  attr_accessor :generator, :name_cache
 
-    "#{letters}#{numbers}"
+  def random_name
+    name = generator.generate_name
+
+    name = generator.generate_name until name_cache.add(name)
+
+    name
+  end
+end
+
+class MemoizedNames
+  def self.add(name)
+    collection.add?(name)
+  end
+
+  private
+
+  def self.collection
+    @@collection ||= Set.new
+  end
+end
+
+class NameGenerator
+  def self.generate_name
+    ('A'..'Z').to_a.sample(2).join + rand.to_s[2, 3]
   end
 end
