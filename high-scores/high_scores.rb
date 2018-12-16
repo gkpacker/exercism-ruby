@@ -26,8 +26,10 @@ class HighScores
   def feedback
     diff = personal_best - latest
 
-    complement = diff.nonzero? ? "#{diff} short of " : ''
-
-   "That's #{complement}" + "your personal best!"
+    if diff.nonzero?
+      "That's #{diff} short of your personal best!"
+    else
+      "That's your personal best!"
+    end
   end
 end
