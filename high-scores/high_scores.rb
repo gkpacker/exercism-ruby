@@ -26,10 +26,14 @@ class HighScores
   def feedback
     diff = personal_best - latest
 
-    if diff.nonzero?
-      "That's #{diff} short of your personal best!"
-    else
+    if personal_best?
       "That's your personal best!"
+    else
+      "That's #{diff} short of your personal best!"
     end
+  end
+
+  def personal_best?
+    personal_best == latest
   end
 end
