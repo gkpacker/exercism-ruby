@@ -4,9 +4,8 @@ end
 
 class Gigasecond
   def self.from(time_utc)
-    seconds = time_utc.to_i
-    year_gigasecond = seconds + (10**9)
-    time = Time.at(year_gigasecond)
-    Time.at(time).utc
+    year_gigasecond = time_utc.to_i + (10**9)
+
+    Time.at(year_gigasecond).utc
   end
 end
