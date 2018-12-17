@@ -1,9 +1,7 @@
 class Binary
-  def self.to_decimal(number)
-    chars = number.reverse.chars
+  def self.to_decimal(input)
+    raise ArgumentError if input =~ /[^01]/
 
-    raise ArgumentError unless chars.all? { |char| '01'.include?(char) }
-
-    chars.flat_map.with_index { |char, index| char.to_i * (2 ** index) }.sum
+    input.to_i.digits.each_with_index.sum { |digit, index| digit * (2 ** index) }
   end
 end
