@@ -1,8 +1,6 @@
 class Robot
-  attr_reader :name, :collection
-
   def self.forget
-    @@collection = nil
+    @@names = nil
   end
 
   def name
@@ -15,13 +13,11 @@ class Robot
 
   private
 
-  attr_writer :name
-
   def random_name
-    collection.pop
+    names.pop
   end
 
-  def collection
-    @@collection ||= ('AA000'..'ZZ999').to_a.shuffle
+  def names
+    @@names ||= ('AA000'..'ZZ999').to_a.shuffle
   end
 end
