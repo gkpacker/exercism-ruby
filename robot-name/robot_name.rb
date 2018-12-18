@@ -1,13 +1,8 @@
-require 'set'
-
-# help me
-
 class Robot
-  attr_reader :name
+  attr_reader :name, :collection
 
-  def initialize(generator = NameGenerator, name_cache = MemoizedNames)
-    self.generator = generator
-    self.name_cache = name_cache
+  def self.forget
+    @@collection = nil
   end
 
   def name
@@ -18,36 +13,15 @@ class Robot
     @name = nil
   end
 
-  def self.forget; end
-
   private
 
   attr_writer :name
-  attr_accessor :generator, :name_cache
 
   def random_name
-    name = generator.generate_name
-
-    name = generator.generate_name until name_cache.add(name)
-
-    name
-  end
-end
-
-class MemoizedNames
-  def self.add(name)
-    collection.add?(name)
+    collection.pop
   end
 
-  private
-
-  def self.collection
-    @@collection ||= Set.new
-  end
-end
-
-class NameGenerator
-  def self.generate_name
-    ('A'..'Z').to_a.sample(2).join + rand.to_s[2, 3]
+  def collection
+    @@collection ||= ('AA000'..'ZZ999').to_a.shuffle
   end
 end
