@@ -2,28 +2,28 @@ class Luhn
   attr_reader :input
 
   def initialize(input)
-    @input = input.split.join
+    @input = input.gsub(' ', '')
   end
 
   def self.valid?(input)
-    luhn = new(input)
-
-    luhn.valid?
+    new(input).valid?
   end
 
   def valid?
     return false if input.size <= 1 || input =~ /\D/
 
-    sum = input.to_i.digits.each_with_index.sum do |digit, index|
-      apply_luhn(digit, index)
-    end
-
-    sum % 10 == 0
+    luhn_sum % 10 == 0
   end
 
   private
 
-  def apply_luhn(digit, index)
+  def luhn_sum
+    input.to_i.digits.each_with_index.sum do |digit, index|
+      luhn_digit(digit, index)
+    end
+  end
+
+  def luhn_digit(digit, index)
     digit *= 2 if index.odd?
     digit -= 9 if digit > 9
 
