@@ -10,12 +10,16 @@ class Luhn
   end
 
   def valid?
-    return false if input.size <= 1 || input =~ /\D/
+    return false if invalid_input?
 
     luhn_sum % 10 == 0
   end
 
   private
+
+  def invalid_input?
+    input.size <= 1 || input =~ /\D/
+  end
 
   def luhn_sum
     input.to_i.digits.each_with_index.sum do |digit, index|
