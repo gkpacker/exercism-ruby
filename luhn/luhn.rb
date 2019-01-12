@@ -10,15 +10,19 @@ class Luhn
   end
 
   def valid?
-    return false if invalid_input?
+    return false if short_input? || input_contains_non_digits
 
     luhn_sum % 10 == 0
   end
 
   private
 
-  def invalid_input?
-    input.size <= 1 || input =~ /\D/
+  def input_contains_non_digits?
+    input =~ /\D/
+  end
+
+  def short_input?
+    input.size <= 1
   end
 
   def luhn_sum
