@@ -1,5 +1,3 @@
-require 'pry'
-
 class TwelveDays
   GIFTS = {
     first: "a Partridge in a Pear Tree",
