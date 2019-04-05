@@ -21,16 +21,16 @@ class TwelveDays
   private
 
   def self.verse(verse_number)
-    gifts = gifts_at(verse_number)
+    gifts = gifts(verse_number)
 
-    "On the #{day_at(verse_number)} day of Christmas my true love gave to me: #{to_sentence(gifts)}.\n"
+    "On the #{day(verse_number)} day of Christmas my true love gave to me: #{to_sentence(gifts)}.\n"
   end
 
-  def self.day_at(verse_number)
+  def self.day(verse_number)
     GIFTS.keys[verse_number - 1]
   end
 
-  def self.gifts_at(verse_number)
+  def self.gifts(verse_number)
     GIFTS.values[0..verse_number - 1].reverse
   end
 
