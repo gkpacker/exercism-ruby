@@ -18,12 +18,25 @@ class TwelveDays
     (1..GIFTS.size).map { |n| verse(n) }.join("\n")
   end
 
-  def self.verse(verse_number)
-    index = verse_number - 1
-    gifts = GIFTS.values[0..index].reverse
-    last_gift = gifts.pop
-    gifts_sentence = gifts.empty? ? last_gift : "#{gifts.join(', ')}, and #{last_gift}"
+  private
 
-    "On the #{GIFTS.keys[index]} day of Christmas my true love gave to me: #{gifts_sentence}.\n"
+  def self.verse(verse_number)
+    gifts = gifts_at(verse_number)
+
+    "On the #{day_at(verse_number)} day of Christmas my true love gave to me: #{to_sentence(gifts)}.\n"
+  end
+
+  def self.day_at(verse_number)
+    GIFTS.keys[verse_number - 1]
+  end
+
+  def self.gifts_at(verse_number)
+    GIFTS.values[0..verse_number - 1].reverse
+  end
+
+  def self.to_sentence(array)
+    *gifts, last_gift = array
+
+    gifts.empty? ? last_gift : "#{gifts.join(', ')}, and #{last_gift}"
   end
 end
